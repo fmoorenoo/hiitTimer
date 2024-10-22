@@ -67,7 +67,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
             Text(text = "WORK", fontSize = 30.sp)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { if (work > 15) work -= 15 }) {
+                Button(onClick = { if (work >= 15) work -= 11 }) {
                     Text(text = "-", fontSize = 25.sp)
                 }
                 Text(text = work.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
@@ -121,12 +121,14 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         counter?.start()
     }
 
+
     fun reiniciar() {
         funcionando = false
         fase = "WORK"
         restante = work
         setActual = sets
     }
+
 
     fun siguienteFase() {
         if (fase == "WORK") {
@@ -143,6 +145,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
+
     LaunchedEffect(funcionando) {
         if (!funcionando) {
             funcionando = true
@@ -150,11 +153,22 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
+
     val context = LocalContext.current
-    var mediaPlayer by remember { mutableStateOf<MediaPlayer?> (null)}
-    mediaPlayer = MediaPlayer.create(context, R.raw.audio2)
+    var mediaPlayer by remember {
+        mutableStateOf<MediaPlayer?>(MediaPlayer.create(context, R.raw.audio2))
+    }
+
+
     LaunchedEffect(Unit) {
         mediaPlayer?.start()
+    }
+
+
+    fun detenerAudio() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     val backgroundColor = when (fase) {
@@ -162,6 +176,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         "REST" -> Color(0xFF2196F3)
         else -> Color(0xFFFF8080)
     }
+
 
     Column(
         modifier = Modifier
@@ -180,24 +195,36 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
             Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
 
+
             Button(onClick = { reiniciar() }) {
                 Text(text = "Reiniciar", fontSize = 30.sp)
             }
             Spacer(modifier = Modifier.padding(10.dp, 10.dp))
-            Button(onClick = { volver() }) {
+
+
+            Button(onClick = {
+                detenerAudio()
+                volver()
+            }) {
                 Text(text = "Ajustes", fontSize = 30.sp)
             }
 
         } else {
             Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
+
             Button(onClick = { reiniciar() }) {
                 Text(text = "Reiniciar Tábata", fontSize = 25.sp)
             }
 
-            Button(onClick = { volver() }) {
+
+            Button(onClick = {
+                detenerAudio()
+                volver()
+            }) {
                 Text(text = "Ajustes", fontSize = 25.sp)
             }
         }
     }
 }
+
