@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.iesharia.hiittimer.ui.theme.HiitTimerTheme
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.text.font.FontWeight
 
 
 class MainActivity : ComponentActivity() {
@@ -86,7 +89,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             }
         } else {
             CounterScreen(
-                sets = sets + 1,
+                sets = sets,
                 work = work + 1,
                 rest = rest + 1,
                 volver = { mostrar = true }
@@ -158,20 +161,25 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (fase != "Finish") {
-            Text(text = fase, fontSize = 40.sp)
-            Text(text = "Sets restantes: $setActual", fontSize = 40.sp)
-            Text(text = "$restante", fontSize = 100.sp)
+            Text(
+                text = fase, fontSize = 70.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(10.dp, 10.dp)
+            )
+            Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+            Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
 
             Button(onClick = { reiniciar() }) {
-                Text(text = "Reiniciar", fontSize = 25.sp)
+                Text(text = "Reiniciar", fontSize = 30.sp)
             }
-
+            Spacer(modifier = Modifier.padding(10.dp, 10.dp))
             Button(onClick = { volver() }) {
-                Text(text = "Ajustes", fontSize = 25.sp)
+                Text(text = "Ajustes", fontSize = 30.sp)
             }
 
         } else {
-            Text(text = "¡Tabata completado!", fontSize = 40.sp)
+            Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
             Button(onClick = { reiniciar() }) {
                 Text(text = "Reiniciar Tábata", fontSize = 25.sp)
