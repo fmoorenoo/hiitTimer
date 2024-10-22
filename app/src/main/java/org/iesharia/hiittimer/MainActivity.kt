@@ -17,7 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Button
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
+import android.provider.MediaStore.Audio.Media
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.util.unpackInt1
 
 
 class MainActivity : ComponentActivity() {
@@ -148,6 +150,12 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
+    val context = LocalContext.current
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?> (null)}
+    mediaPlayer = MediaPlayer.create(context, R.raw.audio2)
+    LaunchedEffect(Unit) {
+        mediaPlayer?.start()
+    }
 
     val backgroundColor = when (fase) {
         "WORK" -> Color(0xFF00E676)
