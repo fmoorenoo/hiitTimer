@@ -17,8 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Button
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
-
-
+import androidx.compose.ui.platform.LocalContext
 
 
 class MainActivity : ComponentActivity() {
@@ -148,6 +147,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             iniciar(work) { siguienteFase() }
         }
     }
+
 
     val backgroundColor = when (fase) {
         "WORK" -> Color(0xFF00E676)
