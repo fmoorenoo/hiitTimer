@@ -100,6 +100,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Composable
 fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     var fase by remember { mutableStateOf("PREP") }
@@ -108,6 +109,21 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     var funcionando by remember { mutableStateOf(false) }
 
     var counter: CounterDown? by remember { mutableStateOf<CounterDown?>(null) }
+
+    val context = LocalContext.current
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+
+    fun detenerMusica() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    fun iniciarMusica() {
+        detenerMusica()
+        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+        mediaPlayer?.start()
+    }
 
     fun iniciar(seconds: Int, onFinish: () -> Unit) {
         counter?.cancel()
@@ -127,20 +143,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         setActual = sets
     }
 
-    val context = LocalContext.current
-    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
-
-    fun detenerMusica() {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        mediaPlayer = null
-    }
-
-    fun iniciarMusica() {
-        detenerMusica()
-        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
-        mediaPlayer?.start()
-    }
 
     fun siguienteFase() {
         if (fase == "WORK") {
