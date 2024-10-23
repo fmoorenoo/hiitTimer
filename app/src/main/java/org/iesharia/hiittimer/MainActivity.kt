@@ -78,7 +78,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
             Text(text = "REST", fontSize = 30.sp)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { if (rest > 10) rest -= 10 }) {
+                Button(onClick = { if (rest >= 10) rest -= 6 }) {
                     Text(text = "-", fontSize = 25.sp)
                 }
                 Text(text = rest.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
@@ -128,11 +128,28 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         restante = work
         setActual = sets
     }
+    val context = LocalContext.current
+    var mediaPlayer by remember {
+        mutableStateOf<MediaPlayer?>(MediaPlayer.create(context, R.raw.audiofinalissimo))
+    }
+
+
+    LaunchedEffect(Unit) {
+        mediaPlayer?.start()
+    }
+
+
+    fun detenerAudio() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
 
 
     fun siguienteFase() {
         if (fase == "WORK") {
             fase = "REST"
+            detenerAudio()
             iniciar(rest) {
                 if (setActual > 1) {
                     setActual--
@@ -151,24 +168,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             funcionando = true
             iniciar(work) { siguienteFase() }
         }
-    }
-
-
-    val context = LocalContext.current
-    var mediaPlayer by remember {
-        mutableStateOf<MediaPlayer?>(MediaPlayer.create(context, R.raw.audio2))
-    }
-
-
-    LaunchedEffect(Unit) {
-        mediaPlayer?.start()
-    }
-
-
-    fun detenerAudio() {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        mediaPlayer = null
     }
 
     val backgroundColor = when (fase) {
