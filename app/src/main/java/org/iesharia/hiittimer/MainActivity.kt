@@ -194,14 +194,15 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 color = Color.White,
                 modifier = Modifier.padding(10.dp, 10.dp)
             )
-            if (fase != "PREP") {
-                Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
-            }
             Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
 
-            Button(onClick = { reiniciar() }) {
-                Text(text = "Reiniciar", fontSize = 30.sp)
+            if (fase != "PREP") {
+                Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+                Button(onClick = { reiniciar() }) {
+                    Text(text = "Reiniciar", fontSize = 30.sp)
+                }
             }
+
             Spacer(modifier = Modifier.padding(10.dp, 10.dp))
 
             Button(onClick = {
