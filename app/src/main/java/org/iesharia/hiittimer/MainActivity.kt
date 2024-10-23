@@ -154,6 +154,8 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 if (setActual > 1) {
                     setActual--
                     fase = "WORK"
+                    mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+                    mediaPlayer?.start()
                     iniciar(work) { siguienteFase() }
                 } else {
                     fase = "Finish"
