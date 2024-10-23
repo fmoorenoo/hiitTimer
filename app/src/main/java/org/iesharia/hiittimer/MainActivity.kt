@@ -51,8 +51,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             .background(Color(0xFFe1dd60)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-
-        ) {
+    ) {
         if (mostrar) {
             Text(text = "SETS", fontSize = 30.sp)
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -131,7 +130,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     val context = LocalContext.current
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
 
-
     fun detenerMusica() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
@@ -139,12 +137,10 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     }
 
     fun iniciarMusica() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
-            mediaPlayer?.start()
-        }
+        detenerMusica()
+        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+        mediaPlayer?.start()
     }
-
 
     fun siguienteFase() {
         if (fase == "WORK") {
@@ -209,6 +205,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
 
             Button(onClick = {
                 detenerMusica()
+                counter?.cancel()
                 volver()
             }) {
                 Text(text = "Ajustes", fontSize = 30.sp)
@@ -223,6 +220,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
 
             Button(onClick = {
                 detenerMusica()
+                counter?.cancel()
                 volver()
             }) {
                 Text(text = "Ajustes", fontSize = 25.sp)
