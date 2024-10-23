@@ -139,10 +139,12 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     }
 
     fun iniciarMusica() {
-        detenerMusica()
-        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
-        mediaPlayer?.start()
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+            mediaPlayer?.start()
+        }
     }
+
 
     fun siguienteFase() {
         if (fase == "WORK") {
