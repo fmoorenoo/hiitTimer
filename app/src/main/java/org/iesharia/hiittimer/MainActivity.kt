@@ -103,8 +103,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
-    var fase by remember { mutableStateOf("WORK") }
-    var restante by remember { mutableStateOf(work) }
+    var fase by remember { mutableStateOf("PREP") }
+    var restante by remember { mutableStateOf(5) }
     var setActual by remember { mutableStateOf(sets) }
     var funcionando by remember { mutableStateOf(false) }
 
@@ -121,30 +121,26 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         counter?.start()
     }
 
-
     fun reiniciar() {
         funcionando = false
-        fase = "WORK"
-        restante = work
+        fase = "PREP"
+        restante = 5
         setActual = sets
     }
+
     val context = LocalContext.current
     var mediaPlayer by remember {
         mutableStateOf<MediaPlayer?>(MediaPlayer.create(context, R.raw.audiofinalissimo))
     }
-
-
     LaunchedEffect(Unit) {
         mediaPlayer?.start()
     }
-
 
     fun detenerAudio() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
-
 
     fun siguienteFase() {
         if (fase == "WORK") {
@@ -161,23 +157,25 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                     fase = "Finish"
                 }
             }
+        } else if (fase == "PREP") {
+            fase = "WORK"
+            iniciar(work) { siguienteFase() }
         }
     }
-
 
     LaunchedEffect(funcionando) {
         if (!funcionando) {
             funcionando = true
-            iniciar(work) { siguienteFase() }
+            iniciar(restante) { siguienteFase() }
         }
     }
 
     val backgroundColor = when (fase) {
         "WORK" -> Color(0xFF00E676)
         "REST" -> Color(0xFF2196F3)
+        "PREP" -> Color(0xFFFFC107)
         else -> Color(0xFFFF8080)
     }
-
 
     Column(
         modifier = Modifier
@@ -188,20 +186,21 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     ) {
         if (fase != "Finish") {
             Text(
-                text = fase, fontSize = 70.sp,
+                text = if (fase == "PREP") "Prepárate" else fase,
+                fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 modifier = Modifier.padding(10.dp, 10.dp)
             )
-            Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+            if (fase != "PREP") {
+                Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+            }
             Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
-
 
             Button(onClick = { reiniciar() }) {
                 Text(text = "Reiniciar", fontSize = 30.sp)
             }
             Spacer(modifier = Modifier.padding(10.dp, 10.dp))
-
 
             Button(onClick = {
                 detenerAudio()
@@ -213,11 +212,9 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         } else {
             Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
-
             Button(onClick = { reiniciar() }) {
                 Text(text = "Reiniciar Tábata", fontSize = 25.sp)
             }
-
 
             Button(onClick = {
                 detenerAudio()
@@ -228,4 +225,3 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 }
-
