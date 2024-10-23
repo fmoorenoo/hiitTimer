@@ -129,29 +129,30 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     }
 
     val context = LocalContext.current
-    var mediaPlayer by remember {
-        mutableStateOf<MediaPlayer?>(MediaPlayer.create(context, R.raw.audiofinalissimo))
-    }
-    LaunchedEffect(Unit) {
-        mediaPlayer?.start()
-    }
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
 
-    fun detenerAudio() {
+
+    fun detenerMusica() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
 
+    fun iniciarMusica() {
+        detenerMusica()
+        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+        mediaPlayer?.start()
+    }
+
     fun siguienteFase() {
         if (fase == "WORK") {
             fase = "REST"
-            detenerAudio()
+            detenerMusica()
             iniciar(rest) {
                 if (setActual > 1) {
                     setActual--
                     fase = "WORK"
-                    mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
-                    mediaPlayer?.start()
+                    iniciarMusica()
                     iniciar(work) { siguienteFase() }
                 } else {
                     fase = "Finish"
@@ -159,6 +160,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
         } else if (fase == "PREP") {
             fase = "WORK"
+            iniciarMusica()
             iniciar(work) { siguienteFase() }
         }
     }
@@ -203,7 +205,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             Spacer(modifier = Modifier.padding(10.dp, 10.dp))
 
             Button(onClick = {
-                detenerAudio()
+                detenerMusica()
                 volver()
             }) {
                 Text(text = "Ajustes", fontSize = 30.sp)
@@ -217,7 +219,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
 
             Button(onClick = {
-                detenerAudio()
+                detenerMusica()
                 volver()
             }) {
                 Text(text = "Ajustes", fontSize = 25.sp)
