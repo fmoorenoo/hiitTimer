@@ -196,6 +196,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
 
             if (fase != "PREP") {
                 Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
                 Button(onClick = { reiniciar() }) {
                     Text(text = "Reiniciar", fontSize = 30.sp)
                 }
