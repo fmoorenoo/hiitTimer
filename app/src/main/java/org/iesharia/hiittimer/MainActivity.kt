@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 
@@ -85,7 +86,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
-                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
+                Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
                 Text(text = "WORK",
                     fontSize = 35.sp,
@@ -109,7 +110,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
-                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
+                Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
                 Text(text = "REST",
                     fontSize = 35.sp,
@@ -132,7 +133,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
-                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
+                Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
                 Button(onClick = { mostrar = false }) {
                     Text(text = "Start", fontSize = 50.sp)
