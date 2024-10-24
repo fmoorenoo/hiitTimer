@@ -55,6 +55,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.fondo),
             contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
 
 
