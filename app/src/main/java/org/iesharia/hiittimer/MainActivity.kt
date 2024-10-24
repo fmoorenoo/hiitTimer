@@ -17,9 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Button
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
-import android.provider.MediaStore.Audio.Media
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.util.unpackInt1
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
