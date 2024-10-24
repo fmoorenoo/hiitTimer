@@ -66,34 +66,65 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize()
         ) {
             if (mostrar) {
-                Text(text = "SETS", fontSize = 30.sp)
+                Text(text = "SETS",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Yellow,
+                    modifier = Modifier.padding(10.dp, 10.dp)
+                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Button(onClick = { if (sets > 1) sets-- }) {
                         Text(text = "-", fontSize = 25.sp)
                     }
-                    Text(text = sets.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Text(text = sets.toString(),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(60.dp, 40.dp),
+                        color = Color.White
+                    )
                     Button(onClick = { sets++ }) {
                         Text(text = "+", fontSize = 25.sp)
                     }
                 }
 
-                Text(text = "WORK", fontSize = 30.sp)
+                Text(text = "WORK",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Yellow,
+                    modifier = Modifier.padding(10.dp, 10.dp)
+                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Button(onClick = { if (work >= 15) work -= 11 }) {
                         Text(text = "-", fontSize = 25.sp)
                     }
-                    Text(text = work.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Text(text = work.toString(),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(60.dp, 40.dp),
+                        color = Color.White
+                    )
+
                     Button(onClick = { work += 15 }) {
                         Text(text = "+", fontSize = 25.sp)
                     }
                 }
 
-                Text(text = "REST", fontSize = 30.sp)
+                Text(text = "REST",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Yellow,
+                    modifier = Modifier.padding(10.dp, 10.dp)
+                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Button(onClick = { if (rest >= 10) rest -= 6 }) {
                         Text(text = "-", fontSize = 25.sp)
                     }
-                    Text(text = rest.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Text(text = rest.toString(),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(60.dp, 40.dp),
+                        color = Color.White
+                    )
                     Button(onClick = { rest += 10 }) {
                         Text(text = "+", fontSize = 25.sp)
                     }
