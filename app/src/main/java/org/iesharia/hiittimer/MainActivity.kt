@@ -77,13 +77,15 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = sets.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 40.dp),
+                        modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
                     Button(onClick = { sets++ }) {
                         Text(text = "+", fontSize = 25.sp)
                     }
                 }
+
+                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
 
                 Text(text = "WORK",
                     fontSize = 35.sp,
@@ -98,7 +100,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = work.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 40.dp),
+                        modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
 
@@ -106,6 +108,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         Text(text = "+", fontSize = 25.sp)
                     }
                 }
+
+                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
 
                 Text(text = "REST",
                     fontSize = 35.sp,
@@ -120,13 +124,15 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = rest.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 40.dp),
+                        modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
                     Button(onClick = { rest += 10 }) {
                         Text(text = "+", fontSize = 25.sp)
                     }
                 }
+
+                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
 
                 Button(onClick = { mostrar = false }) {
                     Text(text = "Start", fontSize = 50.sp)
