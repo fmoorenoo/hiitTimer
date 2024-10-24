@@ -194,11 +194,12 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         mediaPlayer = null
     }
 
-    fun iniciarMusica() {
+    fun iniciarMusica(audioId: Int) {
         detenerMusica()
-        mediaPlayer = MediaPlayer.create(context, R.raw.audiofinalissimo)
+        mediaPlayer = MediaPlayer.create(context, audioId)
         mediaPlayer?.start()
     }
+
 
     fun iniciar(seconds: Int, onFinish: () -> Unit) {
         counter?.cancel()
@@ -228,7 +229,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 iniciar(rest) {
                     setActual--
                     fase = "WORK"
-                    iniciarMusica()
+                    iniciarMusica(R.raw.audiofinalissimo)
                     iniciar(work) { siguienteFase() }
                 }
             } else {
@@ -237,7 +238,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
         } else if (fase == "PREP") {
             fase = "WORK"
-            iniciarMusica()
+            iniciarMusica(R.raw.audiofinalissimo)
             iniciar(work) { siguienteFase() }
         }
     }
@@ -292,6 +293,9 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
 
         } else {
+            if (mediaPlayer == null) {
+                iniciarMusica(R.raw.audiofinal)
+            }
             Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
             Button(onClick = { reiniciar() }) {
