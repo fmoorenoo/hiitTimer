@@ -222,17 +222,18 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
 
     fun siguienteFase() {
         if (fase == "WORK") {
-            fase = "REST"
-            detenerMusica()
-            iniciar(rest) {
-                if (setActual > 1) {
+            if (setActual > 1) {
+                fase = "REST"
+                detenerMusica()
+                iniciar(rest) {
                     setActual--
                     fase = "WORK"
                     iniciarMusica()
                     iniciar(work) { siguienteFase() }
-                } else {
-                    fase = "Finish"
                 }
+            } else {
+                detenerMusica()
+                fase = "Finish"
             }
         } else if (fase == "PREP") {
             fase = "WORK"
@@ -298,7 +299,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
 
             Button(onClick = {
-                detenerMusica()
                 counter?.cancel()
                 volver()
             }) {
