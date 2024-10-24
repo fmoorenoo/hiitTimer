@@ -68,12 +68,11 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Yellow,
-                    modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "<",
-                        fontSize = 35.sp,
+                        fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { if (sets > 1) sets-- },
@@ -82,12 +81,12 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = sets.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 10.dp),
+                        modifier = Modifier.padding(60.dp, 0.dp),
                         color = Color.White
                     )
                     Text(
                         text = ">",
-                        fontSize = 35.sp,
+                        fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { sets++ },
@@ -101,12 +100,11 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Yellow,
-                    modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "-",
-                        fontSize = 25.sp,
+                        fontSize = 65.sp,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { if (work > 10) work -= 10 },
@@ -115,15 +113,15 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = work.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 10.dp),
+                        modifier = Modifier.padding(60.dp, 0.dp),
                         color = Color.White
                     )
                     Text(
                         text = "+",
-                        fontSize = 25.sp,
+                        fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
-                            .clickable { work += 15 },
+                            .clickable { work += 10 },
                         color = Color.White
                     )
                 }
@@ -134,12 +132,11 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Yellow,
-                    modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "-",
-                        fontSize = 25.sp,
+                        fontSize = 65.sp,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { if (rest > 10) rest -= 10 },
@@ -148,12 +145,12 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     Text(text = rest.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(60.dp, 10.dp),
+                        modifier = Modifier.padding(60.dp, 0.dp),
                         color = Color.White
                     )
                     Text(
                         text = "+",
-                        fontSize = 25.sp,
+                        fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { rest += 10 },
