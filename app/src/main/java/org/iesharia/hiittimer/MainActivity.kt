@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 fun ConfigScreen(modifier: Modifier = Modifier) {
     var mostrar by remember { mutableStateOf(true) }
     var sets by remember { mutableStateOf(3) }
-    var work by remember { mutableStateOf(60) }
+    var work by remember { mutableStateOf(30) }
     var rest by remember { mutableStateOf(10) }
 
     Box(
@@ -57,7 +57,6 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
-
 
         Column(
             verticalArrangement = Arrangement.Center,
@@ -72,18 +71,28 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Button(onClick = { if (sets > 1) sets-- }) {
-                        Text(text = "-", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = "<",
+                        fontSize = 35.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { if (sets > 1) sets-- },
+                        color = Color.White
+                    )
                     Text(text = sets.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
-                    Button(onClick = { sets++ }) {
-                        Text(text = "+", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = ">",
+                        fontSize = 35.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { sets++ },
+                        color = Color.White
+                    )
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
@@ -95,19 +104,28 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Button(onClick = { if (work >= 15) work -= 11 }) {
-                        Text(text = "-", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = "-",
+                        fontSize = 25.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { if (work > 10) work -= 10 },
+                        color = Color.White
+                    )
                     Text(text = work.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
-
-                    Button(onClick = { work += 15 }) {
-                        Text(text = "+", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = "+",
+                        fontSize = 25.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { work += 15 },
+                        color = Color.White
+                    )
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
@@ -119,18 +137,28 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(10.dp, 10.dp)
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Button(onClick = { if (rest >= 10) rest -= 6 }) {
-                        Text(text = "-", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = "-",
+                        fontSize = 25.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { if (rest > 10) rest -= 10 },
+                        color = Color.White
+                    )
                     Text(text = rest.toString(),
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(60.dp, 10.dp),
                         color = Color.White
                     )
-                    Button(onClick = { rest += 10 }) {
-                        Text(text = "+", fontSize = 25.sp)
-                    }
+                    Text(
+                        text = "+",
+                        fontSize = 25.sp,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable { rest += 10 },
+                        color = Color.White
+                    )
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
