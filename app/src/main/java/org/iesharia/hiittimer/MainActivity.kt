@@ -20,6 +20,9 @@ import android.media.MediaPlayer
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.util.unpackInt1
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 
 
 class MainActivity : ComponentActivity() {
@@ -45,57 +48,66 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
     var work by remember { mutableStateOf(60) }
     var rest by remember { mutableStateOf(10) }
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFFe1dd60)),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        if (mostrar) {
-            Text(text = "SETS", fontSize = 30.sp)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { if (sets > 1) sets-- }) {
-                    Text(text = "-", fontSize = 25.sp)
-                }
-                Text(text = sets.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
-                Button(onClick = { sets++ }) {
-                    Text(text = "+", fontSize = 25.sp)
-                }
-            }
+        Image(
+            painter = painterResource(id = R.drawable.fondo),
+            contentDescription = null,
+        )
 
-            Text(text = "WORK", fontSize = 30.sp)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { if (work >= 15) work -= 11 }) {
-                    Text(text = "-", fontSize = 25.sp)
-                }
-                Text(text = work.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
-                Button(onClick = { work += 15 }) {
-                    Text(text = "+", fontSize = 25.sp)
-                }
-            }
 
-            Text(text = "REST", fontSize = 30.sp)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { if (rest >= 10) rest -= 6 }) {
-                    Text(text = "-", fontSize = 25.sp)
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            if (mostrar) {
+                Text(text = "SETS", fontSize = 30.sp)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Button(onClick = { if (sets > 1) sets-- }) {
+                        Text(text = "-", fontSize = 25.sp)
+                    }
+                    Text(text = sets.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Button(onClick = { sets++ }) {
+                        Text(text = "+", fontSize = 25.sp)
+                    }
                 }
-                Text(text = rest.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
-                Button(onClick = { rest += 10 }) {
-                    Text(text = "+", fontSize = 25.sp)
-                }
-            }
 
-            Button(onClick = { mostrar = false }) {
-                Text(text = "Start", fontSize = 50.sp)
+                Text(text = "WORK", fontSize = 30.sp)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Button(onClick = { if (work >= 15) work -= 11 }) {
+                        Text(text = "-", fontSize = 25.sp)
+                    }
+                    Text(text = work.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Button(onClick = { work += 15 }) {
+                        Text(text = "+", fontSize = 25.sp)
+                    }
+                }
+
+                Text(text = "REST", fontSize = 30.sp)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Button(onClick = { if (rest >= 10) rest -= 6 }) {
+                        Text(text = "-", fontSize = 25.sp)
+                    }
+                    Text(text = rest.toString(), fontSize = 30.sp, modifier = Modifier.padding(60.dp, 40.dp))
+                    Button(onClick = { rest += 10 }) {
+                        Text(text = "+", fontSize = 25.sp)
+                    }
+                }
+
+                Button(onClick = { mostrar = false }) {
+                    Text(text = "Start", fontSize = 50.sp)
+                }
+            } else {
+                CounterScreen(
+                    sets = sets,
+                    work = work + 1,
+                    rest = rest + 1,
+                    volver = { mostrar = true }
+                )
             }
-        } else {
-            CounterScreen(
-                sets = sets,
-                work = work + 1,
-                rest = rest + 1,
-                volver = { mostrar = true }
-            )
         }
     }
 }
