@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.iesharia.hiittimer.ui.theme.HiitTimerTheme
 import androidx.compose.ui.graphics.Color
-import androidx.compose.material3.Button
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
 import androidx.compose.foundation.BorderStroke
