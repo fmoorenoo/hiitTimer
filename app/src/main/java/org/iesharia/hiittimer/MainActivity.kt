@@ -200,7 +200,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         mediaPlayer?.start()
     }
 
-
     fun iniciar(seconds: Int, onFinish: () -> Unit) {
         counter?.cancel()
         counter = CounterDown(seconds) { tiempoRestante ->
@@ -219,7 +218,6 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         restante = 5
         setActual = sets
     }
-
 
     fun siguienteFase() {
         if (fase == "WORK") {
@@ -250,63 +248,65 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
-    val backgroundColor = when (fase) {
-        "WORK" -> Color(0xFF00E676)
-        "REST" -> Color(0xFF2196F3)
-        "PREP" -> Color(0xFFFFC107)
-        else -> Color(0xFFFF8080)
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        if (fase != "Finish") {
-            Text(
-                text = if (fase == "PREP") "Prepárate" else fase,
-                fontSize = 70.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(10.dp, 10.dp)
-            )
-            Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
+        Image(
+            painter = painterResource(id = R.drawable.fondo2),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
 
-            if (fase != "PREP") {
-                Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.padding(10.dp, 30.dp))
-                Button(onClick = { reiniciar() }) {
-                    Text(text = "Reiniciar", fontSize = 30.sp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (fase != "Finish") {
+                Text(
+                    text = if (fase == "PREP") "Prepárate" else fase,
+                    fontSize = 70.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(10.dp, 10.dp)
+                )
+                Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp))
+
+                if (fase != "PREP") {
+                    Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.padding(10.dp, 30.dp))
+                    Button(onClick = { reiniciar() }) {
+                        Text(text = "Reiniciar", fontSize = 30.sp)
+                    }
                 }
-            }
 
-            Spacer(modifier = Modifier.padding(10.dp, 10.dp))
+                Spacer(modifier = Modifier.padding(10.dp, 10.dp))
 
-            Button(onClick = {
-                detenerMusica()
-                counter?.cancel()
-                volver()
-            }) {
-                Text(text = "Ajustes", fontSize = 30.sp)
-            }
+                Button(onClick = {
+                    detenerMusica()
+                    counter?.cancel()
+                    volver()
+                }) {
+                    Text(text = "Ajustes", fontSize = 30.sp)
+                }
+            } else {
+                if (mediaPlayer == null) {
+                    iniciarMusica(R.raw.audiofinal)
+                }
+                Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
-        } else {
-            if (mediaPlayer == null) {
-                iniciarMusica(R.raw.audiofinal)
-            }
-            Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
+                Button(onClick = { reiniciar() }) {
+                    Text(text = "Reiniciar Tábata", fontSize = 25.sp)
+                }
 
-            Button(onClick = { reiniciar() }) {
-                Text(text = "Reiniciar Tábata", fontSize = 25.sp)
-            }
-
-            Button(onClick = {
-                counter?.cancel()
-                volver()
-            }) {
-                Text(text = "Ajustes", fontSize = 25.sp)
+                Button(onClick = {
+                    counter?.cancel()
+                    volver()
+                }) {
+                    Text(text = "Ajustes", fontSize = 25.sp)
+                }
             }
         }
     }
