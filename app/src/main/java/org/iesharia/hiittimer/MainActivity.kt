@@ -224,6 +224,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             if (setActual > 1) {
                 fase = "REST"
                 detenerMusica()
+                iniciarMusica(R.raw.audiofinalwork)
                 iniciar(rest) {
                     setActual--
                     fase = "WORK"
