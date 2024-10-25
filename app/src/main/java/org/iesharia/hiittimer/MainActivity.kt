@@ -39,9 +39,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Pantalla para configurar los temporizadores.
 @Composable
 fun ConfigScreen(modifier: Modifier = Modifier) {
     var mostrar by remember { mutableStateOf(true) }
+
+    // Valores predeterminados de la configuración.
     var sets by remember { mutableStateOf(3) }
     var work by remember { mutableStateOf(30) }
     var rest by remember { mutableStateOf(10) }
@@ -50,6 +53,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
     ) {
+        // Imagen de fondo ocupando la pantalla completa.
         Image(
             painter = painterResource(id = R.drawable.fondo),
             contentDescription = null,
@@ -62,7 +66,9 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
+            // Condición para mostrar u ocultar la pantalla de configuración.
             if (mostrar) {
+                // Configurar SETS
                 Text(text = "SETS",
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
@@ -92,9 +98,9 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         color = Color.White
                     )
                 }
-
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
+                // Configurar WORK
                 Text(text = "WORK",
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
@@ -124,9 +130,9 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         color = Color.White
                     )
                 }
-
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
+                // Configurar REST
                 Text(text = "REST",
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
@@ -162,6 +168,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                 Button(onClick = { mostrar = false }) {
                     Text(text = "Start", fontSize = 50.sp)
                 }
+            // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
             } else {
                 CounterScreen(
                     sets = sets,
