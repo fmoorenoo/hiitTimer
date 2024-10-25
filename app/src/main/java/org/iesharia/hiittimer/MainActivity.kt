@@ -213,6 +213,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
 
     fun reiniciar() {
         funcionando = false
+        counter?.cancel()
         detenerMusica()
         fase = "PREP"
         restante = 5
