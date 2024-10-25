@@ -356,19 +356,33 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 if (mediaPlayer == null) {
                     iniciarMusica(R.raw.audiofinal)
                 }
-                Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
+                Text(text = "¡Tabata completado!", fontSize = 40.sp,
+                    modifier = Modifier.padding(10.dp, 40.dp),
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
+                Row {
+                    OutlinedButtonExample(onClick = { reiniciar() }) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = "Reiniciar",
+                            tint = Color(0xFFADD8E6),
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
 
-
-                Button(onClick = { reiniciar() }) {
-                    Text(text = "Reiniciar Tábata", fontSize = 25.sp)
-                }
-
-
-                Button(onClick = {
-                    counter?.cancel()
-                    volver()
-                }) {
-                    Text(text = "Ajustes", fontSize = 25.sp)
+                    OutlinedButtonExample(onClick = {
+                        detenerMusica()
+                        counter?.cancel()
+                        volver()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Ajustes",
+                            tint = Color(0xFFADD8E6),
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
             }
         }
