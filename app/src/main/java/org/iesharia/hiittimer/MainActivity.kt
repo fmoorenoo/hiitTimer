@@ -228,7 +228,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 iniciar(rest) {
                     setActual--
                     fase = "WORK"
-                    iniciarMusica(R.raw.audiofinalissimo)
+                    iniciarMusica(R.raw.audiowork)
                     iniciar(work) { siguienteFase() }
                 }
             } else {
@@ -237,7 +237,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             }
         } else if (fase == "PREP") {
             fase = "WORK"
-            iniciarMusica(R.raw.audiofinalissimo)
+            iniciarMusica(R.raw.audiowork)
             iniciar(work) { siguienteFase() }
         }
     }
