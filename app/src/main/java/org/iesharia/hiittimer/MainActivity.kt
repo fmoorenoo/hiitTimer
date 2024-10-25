@@ -16,9 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Button
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 
@@ -38,16 +44,33 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+@Composable
+fun OutlinedButtonExample(onClick: () -> Unit, icon: @Composable () -> Unit) {
+    OutlinedButton(
+        onClick = onClick,
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = Color.Blue
+        ),
+        border = BorderStroke(2.dp, Color.White),
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        icon()
+    }
+}
+
 
 // Pantalla para configurar los temporizadores.
 @Composable
 fun ConfigScreen(modifier: Modifier = Modifier) {
     var mostrar by remember { mutableStateOf(true) }
 
+
     // Valores predeterminados de la configuración.
     var sets by remember { mutableStateOf(3) }
     var work by remember { mutableStateOf(30) }
     var rest by remember { mutableStateOf(10) }
+
 
     Box(
         modifier = modifier
@@ -60,6 +83,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
+
 
         Column(
             verticalArrangement = Arrangement.Center,
@@ -100,6 +124,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                 }
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
+
                 // Configurar WORK
                 Text(text = "WORK",
                     fontSize = 35.sp,
@@ -132,6 +157,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                 }
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
+
                 // Configurar REST
                 Text(text = "REST",
                     fontSize = 35.sp,
@@ -163,10 +189,15 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     )
                 }
 
-                Spacer(modifier = Modifier.padding(10.dp, 20.dp))
 
-                Button(onClick = { mostrar = false }) {
-                    Text(text = "Start", fontSize = 50.sp)
+                Spacer(modifier = Modifier.padding(10.dp, 20.dp))
+                OutlinedButtonExample(onClick = { mostrar = false }) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = "Iniciar",
+                        tint = Color(0xFFADD8E6),
+                        modifier = Modifier.size(24.dp)
+                    )
                 }
             // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
             } else {
@@ -182,6 +213,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 }
 
 
+
+
 @Composable
 fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     var fase by remember { mutableStateOf("PREP") }
@@ -189,10 +222,13 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     var setActual by remember { mutableStateOf(sets) }
     var funcionando by remember { mutableStateOf(false) }
 
+
     var counter: CounterDown? by remember { mutableStateOf<CounterDown?>(null) }
+
 
     val context = LocalContext.current
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+
 
     fun detenerMusica() {
         mediaPlayer?.stop()
@@ -200,11 +236,13 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         mediaPlayer = null
     }
 
+
     fun iniciarMusica(audioId: Int) {
         detenerMusica()
         mediaPlayer = MediaPlayer.create(context, audioId)
         mediaPlayer?.start()
     }
+
 
     fun iniciar(seconds: Int, onFinish: () -> Unit) {
         counter?.cancel()
@@ -217,6 +255,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         counter?.start()
     }
 
+
     fun reiniciar() {
         funcionando = false
         counter?.cancel()
@@ -225,6 +264,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         restante = 5
         setActual = sets
     }
+
 
     fun siguienteFase() {
         if (fase == "WORK") {
@@ -249,12 +289,14 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
+
     LaunchedEffect(funcionando) {
         if (!funcionando) {
             funcionando = true
             iniciar(restante) { siguienteFase() }
         }
     }
+
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -265,6 +307,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
+
 
         Column(
             modifier = Modifier
@@ -282,22 +325,32 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 )
                 Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp), color = Color.White,)
 
+
                 if (fase != "PREP") {
                     Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold, color = Color.White,)
                     Spacer(modifier = Modifier.padding(10.dp, 30.dp))
-                    Button(onClick = { reiniciar() }) {
-                        Text(text = "Reiniciar", fontSize = 30.sp)
+                    OutlinedButtonExample(onClick = { reiniciar() }) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = "Reiniciar",
+                            tint = Color(0xFFADD8E6),
+                            modifier = Modifier.size(32.dp)
+                        )
                     }
                 }
-
                 Spacer(modifier = Modifier.padding(10.dp, 10.dp))
 
-                Button(onClick = {
+                OutlinedButtonExample(onClick = {
                     detenerMusica()
                     counter?.cancel()
                     volver()
                 }) {
-                    Text(text = "Ajustes", fontSize = 30.sp)
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Ajustes",
+                        tint = Color(0xFFADD8E6),
+                        modifier = Modifier.size(32.dp)
+                    )
                 }
             } else {
                 if (mediaPlayer == null) {
@@ -305,9 +358,11 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 }
                 Text(text = "¡Tabata completado!", fontSize = 40.sp, modifier = Modifier.padding(10.dp, 40.dp))
 
+
                 Button(onClick = { reiniciar() }) {
                     Text(text = "Reiniciar Tábata", fontSize = 25.sp)
                 }
+
 
                 Button(onClick = {
                     counter?.cancel()
