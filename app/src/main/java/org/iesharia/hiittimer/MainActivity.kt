@@ -212,29 +212,32 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 }
 
 
-
-
+// Pantalla para mostrar los temporizadores.
 @Composable
 fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
+    // Variable para la fase (prep, work, rest o finish)
     var fase by remember { mutableStateOf("PREP") }
+    // Tiempo restante
     var restante by remember { mutableStateOf(5) }
+    // Set en el que se encuentra
     var setActual by remember { mutableStateOf(sets) }
+    // Verificar si el contador esta funcionando
     var funcionando by remember { mutableStateOf(false) }
 
-
+    // Contador en el archivo CounterDown.kt
     var counter: CounterDown? by remember { mutableStateOf<CounterDown?>(null) }
 
-
     val context = LocalContext.current
+
+    // Reproductor de audio
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
 
-
+    // Funciones de iniciar y detener un audio
     fun detenerMusica() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
-
 
     fun iniciarMusica(audioId: Int) {
         detenerMusica()
@@ -242,7 +245,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         mediaPlayer?.start()
     }
 
-
+    // Función para iniciar un contador
     fun iniciar(seconds: Int, onFinish: () -> Unit) {
         counter?.cancel()
         counter = CounterDown(seconds) { tiempoRestante ->
@@ -254,7 +257,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         counter?.start()
     }
 
-
+    // Función para reiniciar tábata
     fun reiniciar() {
         funcionando = false
         counter?.cancel()
@@ -264,7 +267,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         setActual = sets
     }
 
-
+    // Función para cambiar entre fases
     fun siguienteFase() {
         if (fase == "WORK") {
             if (setActual > 1) {
@@ -296,7 +299,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         }
     }
 
-
+    // Fondo para CounterScreen
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -314,6 +317,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Mientras fase no es finish, se ejecutan los contadores
             if (fase != "Finish") {
                 Text(
                     text = if (fase == "PREP") "Prepárate" else fase,
@@ -351,6 +355,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                         modifier = Modifier.size(32.dp)
                     )
                 }
+            // Si fase ya es Finish, se muestra la pantalla final
             } else {
                 if (mediaPlayer == null) {
                     iniciarMusica(R.raw.audiofinal)
