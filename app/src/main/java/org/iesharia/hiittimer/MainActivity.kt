@@ -214,14 +214,14 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     // Variable para la fase (prep, work, rest o finish)
     var fase by remember { mutableStateOf("PREP") }
     // Tiempo restante
-    var restante by remember { mutableStateOf(5) }
+    var restante by remember { mutableIntStateOf(5) }
     // Set en el que se encuentra
-    var setActual by remember { mutableStateOf(sets) }
+    var setActual by remember { mutableIntStateOf(sets) }
     // Verificar si el contador esta funcionando
     var funcionando by remember { mutableStateOf(false) }
 
     // Contador en el archivo CounterDown.kt
-    var counter: CounterDown? by remember { mutableStateOf<CounterDown?>(null) }
+    var counter: CounterDown? by remember { mutableStateOf(null) }
 
     val context = LocalContext.current
 
@@ -322,11 +322,11 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                     color = Color.White,
                     modifier = Modifier.padding(10.dp, 10.dp)
                 )
-                Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp), color = Color.White,)
+                Text(text = "$restante", fontSize = 100.sp, modifier = Modifier.padding(10.dp, 30.dp), color = Color.White)
 
 
                 if (fase != "PREP") {
-                    Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold, color = Color.White,)
+                    Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     Spacer(modifier = Modifier.padding(10.dp, 30.dp))
                     OutlinedButtonExample(onClick = { reiniciar() }) {
                         Icon(
