@@ -349,13 +349,23 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                         OutlinedButtonExample(onClick = {
                             if (enPausa) reanudarCounter() else pausarCounter()
                         }) {
-                            Icon(
-                                imageVector = if (enPausa) Icons.Default.PlayArrow else Icons.Default.Clear,
-                                contentDescription = if (enPausa) "Reanudar" else "Pausar",
-                                tint = Color(0xFFADD8E6),
-                                modifier = Modifier.size(32.dp)
-                            )
+                            if (enPausa) {
+                                Icon(
+                                    imageVector = Icons.Default.PlayArrow,
+                                    contentDescription = "Reanudar",
+                                    tint = Color(0xFFADD8E6),
+                                    modifier = Modifier.size(32.dp)
+                                )
+                            } else {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_pause),
+                                    contentDescription = "Pausar",
+                                    tint = Color(0xFFADD8E6),
+                                    modifier = Modifier.size(32.dp)
+                                )
+                            }
                         }
+
                         OutlinedButtonExample(onClick = { reiniciar() }) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
