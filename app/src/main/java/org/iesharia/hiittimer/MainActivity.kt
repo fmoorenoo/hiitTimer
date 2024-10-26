@@ -66,9 +66,9 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
 
     // Valores predeterminados de la configuración.
-    var sets by remember { mutableStateOf(3) }
-    var work by remember { mutableStateOf(30) }
-    var rest by remember { mutableStateOf(10) }
+    var sets by remember { mutableIntStateOf(3) }
+    var work by remember { mutableIntStateOf(30) }
+    var rest by remember { mutableIntStateOf(10) }
 
 
     Box(
