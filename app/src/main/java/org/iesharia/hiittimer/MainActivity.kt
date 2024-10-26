@@ -135,7 +135,6 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "-",
                         fontSize = 65.sp,
                         modifier = Modifier
-                            .padding(16.dp)
                             .clickable { if (work > 10) work -= 10 },
                         color = Color.White
                     )
@@ -149,7 +148,6 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "+",
                         fontSize = 40.sp,
                         modifier = Modifier
-                            .padding(16.dp)
                             .clickable { work += 10 },
                         color = Color.White
                     )
@@ -168,7 +166,6 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "-",
                         fontSize = 65.sp,
                         modifier = Modifier
-                            .padding(16.dp)
                             .clickable { if (rest > 10) rest -= 10 },
                         color = Color.White
                     )
@@ -182,7 +179,6 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "+",
                         fontSize = 40.sp,
                         modifier = Modifier
-                            .padding(16.dp)
                             .clickable { rest += 10 },
                         color = Color.White
                     )
@@ -195,7 +191,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         imageVector = Icons.Default.PlayArrow,
                         contentDescription = "Iniciar",
                         tint = Color(0xFFADD8E6),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                 }
             // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
