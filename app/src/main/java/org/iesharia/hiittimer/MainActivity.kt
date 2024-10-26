@@ -221,6 +221,8 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     // Verificar si el contador esta funcionando
     var funcionando by remember { mutableStateOf(false) }
 
+    var enPausa by remember { mutableStateOf(false) }
+
     // Contador en el archivo CounterDown.kt
     var counter: CounterDown? by remember { mutableStateOf(null) }
 
@@ -262,6 +264,18 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
         fase = "PREP"
         restante = 5
         setActual = sets
+    }
+
+    fun pausarCounter() {
+        enPausa = true
+        counter?.pause()
+        detenerMusica()
+    }
+
+    fun reanudarCounter() {
+        enPausa = false
+        counter?.resume()
+        iniciarMusica(R.raw.audiowork)
     }
 
     // Función para cambiar entre fases
@@ -332,22 +346,15 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 }
                 if (fase == "WORK") {
                     Row {
-                        OutlinedButtonExample(onClick = { counter?.pause() }) {
+                        OutlinedButtonExample(onClick = {
+                            if (enPausa) reanudarCounter() else pausarCounter()
+                        }) {
                             Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = "Pausar",
+                                imageVector = if (enPausa) Icons.Default.PlayArrow else Icons.Default.Clear,
+                                contentDescription = if (enPausa) "Reanudar" else "Pausar",
                                 tint = Color(0xFFADD8E6),
                                 modifier = Modifier.size(32.dp)
                             )
-                        }
-                        OutlinedButtonExample(onClick = { counter?.resume() }) {
-                            Icon(
-                                imageVector = Icons.Default.PlayArrow,
-                                contentDescription = "Reanudar",
-                                tint = Color(0xFFADD8E6),
-                                modifier = Modifier.size(32.dp)
-                            )
-
                         }
                         OutlinedButtonExample(onClick = { reiniciar() }) {
                             Icon(
