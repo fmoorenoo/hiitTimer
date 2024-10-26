@@ -21,6 +21,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
@@ -328,13 +329,34 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 if (fase != "PREP") {
                     Text(text = "Sets: $setActual", fontSize = 50.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     Spacer(modifier = Modifier.padding(10.dp, 30.dp))
-                    OutlinedButtonExample(onClick = { reiniciar() }) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = "Reiniciar",
-                            tint = Color(0xFFADD8E6),
-                            modifier = Modifier.size(32.dp)
-                        )
+                }
+                if (fase == "WORK") {
+                    Row {
+                        OutlinedButtonExample(onClick = { counter?.pause() }) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Pausar",
+                                tint = Color(0xFFADD8E6),
+                                modifier = Modifier.size(32.dp)
+                            )
+                        }
+                        OutlinedButtonExample(onClick = { counter?.resume() }) {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = "Reanudar",
+                                tint = Color(0xFFADD8E6),
+                                modifier = Modifier.size(32.dp)
+                            )
+
+                        }
+                        OutlinedButtonExample(onClick = { reiniciar() }) {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = "Reiniciar",
+                                tint = Color(0xFFADD8E6),
+                                modifier = Modifier.size(32.dp)
+                            )
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.padding(10.dp, 10.dp))
