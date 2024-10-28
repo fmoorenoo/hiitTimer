@@ -204,6 +204,13 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                             tint = Color(0xFFADD8E6),
                             modifier = Modifier.size(40.dp)
                         )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.volume_on),
+                            contentDescription = "on",
+                            tint = Color(0xFFADD8E6),
+                            modifier = Modifier.size(40.dp)
+                        )
                     }
                 }
 
