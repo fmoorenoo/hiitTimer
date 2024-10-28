@@ -15,7 +15,6 @@ import org.iesharia.hiittimer.ui.theme.HiitTimerTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
-import android.widget.Button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
@@ -199,14 +198,14 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                 Button(onClick = { if (!muted) muted = true else muted = false }) {
                     if (!muted) {
                         Icon(
-                            painter = painterResource(id = R.drawable.volume_off),
+                            painter = painterResource(id = R.drawable.volume_on),
                             contentDescription = "off",
                             tint = Color(0xFFADD8E6),
-                            modifier = Modifier.size(40.dp)
+                            modifier = Modifier.size(40.dp),
                         )
                     } else {
                         Icon(
-                            painter = painterResource(id = R.drawable.volume_on),
+                            painter = painterResource(id = R.drawable.volume_off),
                             contentDescription = "on",
                             tint = Color(0xFFADD8E6),
                             modifier = Modifier.size(40.dp)
@@ -220,6 +219,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     sets = sets,
                     work = work + 1,
                     rest = rest + 1,
+                    muted = muted,
                     volver = { mostrar = true }
                 )
             }
@@ -230,7 +230,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
 // Pantalla para mostrar los temporizadores.
 @Composable
-fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
+fun CounterScreen(sets: Int, work: Int, rest: Int, muted: Boolean, volver: () -> Unit) {
     // Variable para la fase (prep, work, rest o finish)
     var fase by remember { mutableStateOf("PREP") }
     // Tiempo restante
@@ -258,9 +258,11 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     }
 
     fun iniciarMusica(audioId: Int) {
-        detenerMusica()
-        mediaPlayer = MediaPlayer.create(context, audioId)
-        mediaPlayer?.start()
+        if (!muted) {
+            detenerMusica()
+            mediaPlayer = MediaPlayer.create(context, audioId)
+            mediaPlayer?.start()
+        }
     }
 
     // Función para iniciar un contador
