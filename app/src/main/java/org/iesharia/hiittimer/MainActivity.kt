@@ -215,7 +215,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
     // Variable para la fase (prep, work, rest o finish)
     var fase by remember { mutableStateOf("PREP") }
     // Tiempo restante
-    var restante by remember { mutableIntStateOf(5) }
+    var restante by remember { mutableIntStateOf(4) }
     // Set en el que se encuentra
     var setActual by remember { mutableIntStateOf(sets) }
     // Verificar si el contador esta funcionando
@@ -347,7 +347,13 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, volver: () -> Unit) {
                 if (fase == "WORK") {
                     Row {
                         OutlinedButtonExample(onClick = {
-                            if (enPausa) reanudarCounter() else pausarCounter()
+                            if (enPausa){
+                                reanudarCounter()
+                            } else {
+                                pausarCounter()
+                                iniciarMusica(R.raw.audiopause)
+                            }
+
                         }) {
                             if (enPausa) {
                                 Icon(
