@@ -15,6 +15,7 @@ import org.iesharia.hiittimer.ui.theme.HiitTimerTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
@@ -103,7 +104,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
-                            .clickable { if (sets > 1) sets-- },
+                            .clickable { if (sets > 1) sets--
+                                Log.i("DAM2", "Decremento de SETS a $sets")},
                         color = Color.White
                     )
                     Text(text = sets.toString(),
@@ -117,7 +119,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         fontSize = 40.sp,
                         modifier = Modifier
                             .padding(16.dp)
-                            .clickable { sets++ },
+                            .clickable { sets++
+                                Log.i("DAM2", "Incremento de SETS a $sets")},
                         color = Color.White
                     )
                 }
@@ -135,7 +138,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "-",
                         fontSize = 65.sp,
                         modifier = Modifier
-                            .clickable { if (work > 10) work -= 10 },
+                            .clickable { if (work > 10) work -= 10
+                                Log.i("DAM2", "Decremento de WORK a $work segundos")},
                         color = Color.White
                     )
                     Text(text = work.toString(),
@@ -148,7 +152,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "+",
                         fontSize = 40.sp,
                         modifier = Modifier
-                            .clickable { work += 10 },
+                            .clickable { work += 10
+                                Log.i("DAM2", "Incremento de WORK a $work segundos")},
                         color = Color.White
                     )
                 }
@@ -166,7 +171,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "-",
                         fontSize = 65.sp,
                         modifier = Modifier
-                            .clickable { if (rest > 10) rest -= 10 },
+                            .clickable { if (rest > 10) rest -= 10
+                                Log.i("DAM2", "Decremento de REST a $rest segundos")},
                         color = Color.White
                     )
                     Text(text = rest.toString(),
@@ -179,14 +185,16 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         text = "+",
                         fontSize = 40.sp,
                         modifier = Modifier
-                            .clickable { rest += 10 },
+                            .clickable { rest += 10
+                                Log.i("DAM2", "Incremento de REST a $rest segundos")},
                         color = Color.White
                     )
                 }
 
 
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
-                OutlinedButtonExample(onClick = { mostrar = false }) {
+                OutlinedButtonExample(onClick = { mostrar = false
+                    Log.i("DAM2", "Botón de start pulsado, mostrar ahora es $mostrar")}) {
                     Text(text = "Start",
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
@@ -201,7 +209,8 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
                 }
                 Spacer(modifier = Modifier.padding(10.dp, 50.dp))
-                Button(onClick = { if (!muted) muted = true else muted = false }) {
+                Button(onClick = { if (!muted) muted = true else muted = false
+                    Log.i("DAM2", "Muted cambiado a $muted")}) {
                     if (!muted) {
                         Icon(
                             painter = painterResource(id = R.drawable.volume_on),
