@@ -275,6 +275,9 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, muted: Boolean, volver: () ->
             }
         }
         counter?.start()
+        if (fase == "PREP") {
+            iniciarMusica(R.raw.audioprep)
+        }
     }
 
     // Función para reiniciar tábata
