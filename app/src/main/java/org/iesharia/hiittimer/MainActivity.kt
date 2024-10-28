@@ -15,13 +15,13 @@ import org.iesharia.hiittimer.ui.theme.HiitTimerTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import android.media.MediaPlayer
+import android.widget.Button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
@@ -64,7 +64,7 @@ fun OutlinedButtonExample(onClick: () -> Unit, icon: @Composable () -> Unit) {
 @Composable
 fun ConfigScreen(modifier: Modifier = Modifier) {
     var mostrar by remember { mutableStateOf(true) }
-
+    var muted by remember { mutableStateOf(false) }
 
     // Valores predeterminados de la configuración.
     var sets by remember { mutableIntStateOf(3) }
@@ -195,6 +195,18 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                         modifier = Modifier.size(40.dp)
                     )
                 }
+                Spacer(modifier = Modifier.padding(10.dp, 50.dp))
+                Button(onClick = { if (!muted) muted = true else muted = false }) {
+                    if (!muted) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.volume_off),
+                            contentDescription = "off",
+                            tint = Color(0xFFADD8E6),
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                }
+
             // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
             } else {
                 CounterScreen(
