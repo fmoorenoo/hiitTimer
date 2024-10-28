@@ -187,12 +187,18 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
 
                 Spacer(modifier = Modifier.padding(10.dp, 20.dp))
                 OutlinedButtonExample(onClick = { mostrar = false }) {
+                    Text(text = "Start",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(10.dp, 0.dp),
+                        color = Color.White)
                     Icon(
                         imageVector = Icons.Default.PlayArrow,
                         contentDescription = "Iniciar",
-                        tint = Color(0xFFADD8E6),
+                        tint = Color.White,
                         modifier = Modifier.size(40.dp)
                     )
+
                 }
                 Spacer(modifier = Modifier.padding(10.dp, 50.dp))
                 Button(onClick = { if (!muted) muted = true else muted = false }) {
@@ -258,7 +264,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, muted: Boolean, volver: () ->
     }
 
     fun iniciarMusica(audioId: Int) {
-        if (!muted) {
+        if ((fase == "WORK" && !muted) || (fase == "PREP" || fase == "REST")) {
             detenerMusica()
             mediaPlayer = MediaPlayer.create(context, audioId)
             mediaPlayer?.start()
