@@ -58,8 +58,6 @@ fun OutlinedButtonExample(onClick: () -> Unit, icon: @Composable () -> Unit) {
         icon()
     }
 }
-
-
 // Pantalla para configurar los temporizadores.
 @Composable
 fun ConfigScreen(modifier: Modifier = Modifier) {
@@ -228,7 +226,7 @@ fun ConfigScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
-            // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
+                // Si mostrar es falso, se llama a la pantalla de contadores con los ajustes establecidos.
             } else {
                 CounterScreen(
                     sets = sets,
@@ -273,7 +271,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, muted: Boolean, volver: () ->
     }
 
     fun iniciarMusica(audioId: Int) {
-        if ((fase == "WORK" && !muted) || (fase == "PREP" || fase == "REST")) {
+        if ((fase == "WORK" && !muted) || (fase == "PREP" || fase == "REST" || fase == "Finish")) {
             detenerMusica()
             mediaPlayer = MediaPlayer.create(context, audioId)
             mediaPlayer?.start()
@@ -303,6 +301,7 @@ fun CounterScreen(sets: Int, work: Int, rest: Int, muted: Boolean, volver: () ->
         fase = "PREP"
         restante = 5
         setActual = sets
+        iniciarMusica(R.raw.audioprep)
     }
 
     fun pausarCounter() {
